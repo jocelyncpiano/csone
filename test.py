@@ -1,5 +1,6 @@
-print("Hello world")
-print("Fred went to the store.", end="***")
-print("Fred bought", "eggs", "bacon", "milk", "\n")
-print("Fred asked asked, \'How much does this cost?\'")
-print("About 5 \t\t\t\t dollars")
+name = input("What is your name? ")
+age = int(input("How old are you? "))
+birthday = int(input("What year was your last birthday? "))
+birthyear = birthday-age
+print("Your name is", name, "and you are", age, "years old.")
+print("You were born in", birthyear, end=". ")
