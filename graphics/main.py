@@ -4,62 +4,60 @@ import asyncio
 import pygame
 
 pygame.init()
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode([600, 500])
-base_font = pygame.font.Font(None, 32)
-input_rect = pygame.Rect(20, 20, 140, 32)
-color_active = pygame.Color('darkblue')
-color_passive = pygame.Color('chartreuse4')
-color = color_passive
-  
+screen = pygame.display.set_mode((640,480))
 
-def get_keys(event, user_text):
-    if event.type == pygame.KEYDOWN:
-        print(event.key)
-        # Check for backspace
-        if event.key == pygame.K_BACKSPACE:
-            # get text input from 0 to -1 i.e. end.
-            user_text = user_text[:-2] + "|"
-        elif event.key == pygame.K_RETURN:
-            user_text = "" + "|"
-        else:
-            user_text = user_text[:-1]
-            user_text += event.unicode + "|"
-    return event, user_text
+pi=3.14
+white = (255,255,255)
+screen.fill(white)
+black = (0,0,0)
 
-def entry(color, user_text):
-    pygame.draw.rect(screen, color, input_rect)
-    text_surface = base_font.render(user_text, True, (255, 255, 255))
-    screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
-    input_rect.w = max(100, text_surface.get_width()+10)
+#Background
+pygame.draw.rect(screen,(102, 207, 255),(0,0,640,240), 0)
+pygame.draw.rect(screen,(97, 219, 64),(0,240,640,240), 0)
+# Mountains
+pygame.draw.polygon(screen,(89, 75, 65),[(0, 240),(50,240),(25,200)],0)
+pygame.draw.polygon(screen,(89, 75, 65),[(25, 240),(145,240),(85,150)],0)
+
+# House Frame
+pygame.draw.polygon(screen,(196,136,67),[(320, 195),(205,310),(435,310)],0)
+pygame.draw.polygon(screen,(147,184,231),[(320, 210),(220,310),(420,310)],0)
+pygame.draw.rect(screen, (147,184,231), (220,310, 200, 100),0)
+
+# Door
+pygame.draw.rect(screen, (85,149,199), (245 ,313, 55, 85),0)
+pygame.draw.rect(screen, (129,92,53), (252 ,320, 41, 71),0)
+pygame.draw.rect(screen, (196,136,67), (261.5 ,328, 22, 55),0)
+pygame.draw.rect(screen, (204,204,204), (245, 398, 55, 13),0)
+
+# Window
+pygame.draw.rect(screen, (255,255,255), (345, 323, 45, 45),3)
+pygame.draw.line(screen, (white) , (345+22.5,323), (345+22,323+45), 3)
+pygame.draw.line(screen, (white) , (345,323+22.5), (390,323+22), 3)
 
 
-async def main():
-    user_text = ''
-    active = False
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()  
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if input_rect.collidepoint(event.pos):
-                    if active == False:
-                        user_text = user_text + "|"
-                    active = True
-                else:
-                    active = False
-                    user_text = user_text[:-1]
-            if active:
-                event, user_text = get_keys(event, user_text)
-        screen.fill((255, 255, 255))
-        if active:
-            color = color_active
-        else:
-            color = color_passive
-        entry(color, user_text)
-        pygame.display.flip()
-        clock.tick(60)
-        await asyncio.sleep(0)
 
-asyncio.run(main())
+
+
+
+# pygame.draw.ellipse(screen, black, (50,50,10,10),0)
+# pygame.draw.ellipse(screen, black, (100,50,10,10),0)
+# pygame.draw.polygon(screen,(255,0,0),[(80,80),(85,90),(75,90)],0)
+# pygame.draw.arc(screen,black,(30,80,100,50),pi,2*pi,2)
+
+
+
+# update the screen
+pygame.display.update()
+
+
+
+# async def main():
+#     pygame.draw.ellipse(screen,(black),(50,50,10,10),0)
+#     while (True):
+#         for event in pygame.event.get() :
+#             if ( event.type == pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE)):
+#                 pygame.quit(); 
+#                 sys.exit();
+
+
+# asyncio.run(main())
